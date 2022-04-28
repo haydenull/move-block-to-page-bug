@@ -1,37 +1,13 @@
 import '@logseq/libs'
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './App'
-import './index.css'
 
-const isDevelopment = import.meta.env.DEV
 
-if (isDevelopment) {
-  renderApp('browser')
-} else {
-  console.log('=== logseq-plugin-react-boilerplate loaded ===')
-  logseq.ready(() => {
 
-    logseq.provideModel({
-      show() {
-        renderApp('logseq')
-        logseq.showMainUI()
-      },
-    })
+console.log('=== logseq-plugin-react-boilerplate loaded ===')
+logseq.ready(() => {
 
-    logseq.App.registerUIItem('toolbar', {
-      key: 'logseq-plugin-react-boilerplate',
-      template: '<a data-on-click="show" class="button"><i class="ti ti-window"></i></a>',
-    })
-
+  logseq.Editor.registerBlockContextMenuItem('move-block', (e) => {
+    const pageUuid = '626b1f0d-e86e-4ffd-b99a-d79fb8650fcb'
+    return logseq.Editor.moveBlock(e.uuid, pageUuid)
   })
-}
 
-function renderApp(env: string) {
-  ReactDOM.render(
-    <React.StrictMode>
-      <App env={env} />
-    </React.StrictMode>,
-    document.getElementById('root')
-  )
-}
+})
